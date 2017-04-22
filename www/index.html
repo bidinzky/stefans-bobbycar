@@ -1,0 +1,24 @@
+<html>
+	<script src="./jscolor.min.js"></script>
+	<script>
+		var ws = new WebSocket("ws://"+location.hostname+":4000")
+		ws.onmessage = (d)=>{
+			data = JSON.parse(d.data)
+			var [a1,a2] = data 
+			document.getElementById("i1").jscolor.fromString(a1)
+			document.getElementById("i2").jscolor.fromString(a2)
+		}
+		function change(){
+			d = []
+			for(let i = 1;i<=2;i++){
+				s = document.getElementById("i"+i).value
+				d.push(s)
+			}
+			ws.send(JSON.stringify(d))
+		}
+	</script>
+	<body>
+		<input id="i1" class="jscolor" value="ab2567" onchange="change()">
+		<input id="i2" class="jscolor" value="ab2567" onchange="change()">
+	</body>
+</html>
